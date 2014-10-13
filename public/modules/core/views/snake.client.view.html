@@ -1,0 +1,63 @@
+<div id="wellosnake">
+    <div id="canvas_container">
+    	<div id="canvas_head" ng-style="{'font-size':headerfontsize+'em'}">
+    		<span class="stat"><a href="" ng-click="open_config()">Settings</a></span>   
+    		<span class="stat"><a href="" ng-click="restart()">Reset</a></span>   
+    		<span class="stat">Lives: {{lives}}</span>
+    		<span class="stat">Stage: {{stage}} ({{cur_candy}}/{{needed_candy}})</span>    		
+    		<span class="stat">Score: {{score}}</span>
+    		<span class="stat">High: {{highscore}}</span>    		
+    		<Span class="stat"><a href="" ng-click="goFullscreen()">Fullscreen</a></span>
+    	</div>
+    	<div class="canvas_layer" ng-style="{'font-size':overlayfontsize+'em'}">
+	    	<canvas width="{{w}}px" height="{{h}}px" id="snakegame"></canvas>    	
+	    	<div ng-if="paused && !configing" class="overlay">
+		    	<span ng-if="!dead&&!config&&!gameover&&!newstage&&!newgame">
+		    		Game Paused<br><br>Press the <a href="" ng-click="force_unpause()">space</a> key to proceed
+		    	</span>
+		    	<span ng-if="newgame">
+		    		Wellosnake is an HTML5 snake clone<br>that pays homage to the QBasic classic, Nibbles<br><br>
+		    		Use the arrow keys to control your snake (yellow).<br>
+		    		Pause the game at any time with the "space" key.<br>
+		    		Eat 5 candy (white blocks) to advance to the next level.<br>
+		    		Avoid walls and enemy snakes.<br>
+		    		Click <a href="" ng-click="open_config()">Settings</a> to customize the game.<br>
+		    		Click <a href="" ng-click="goFullscreen()">Fullscreen</a> to enter Fullscreen Mode if possible.<br>
+		    		Every 1000 points grants you an extra snake.<br>
+		    		Go for your own personal highscore!
+		    		<br><br>Press the <a href="" ng-click="force_unpause()">space</a> key to proceed
+		    	</span>
+		    	<span ng-if="newstage">
+		    		Stage {{stage-1}} Complete!<br><br>Press the <a href="" ng-click="force_unpause()">space</a> key to proceed
+		    	</span>			    	
+		    	<span ng-if="dead">
+		    		You Died!<br>{{lives}} snake(s) remaining!<br>
+		    		{{needed_candy-cur_candy}} candy needed to advance!
+		    		<br><br>Press the <a href="" ng-click="force_unpause()">space</a>  key to proceed
+		    	</span>
+		    	<span ng-if="gameover">
+		    		Game Over!<br><br>Press the <a href="" ng-click="force_unpause()">space</a>  key to restart
+		    	</span>					    	    	
+		    </div>
+	    	<div ng-if="configing" class="overlay">
+		    	Wellosnake Settings<br><br>
+
+		    	Harder settings mean more points!<br><br>
+
+		    	AI Snake Opponents: <select name="ai_snakes" ng-model="$parent.edit_ai_snakes" ng-options="ai_snake_option.value as ai_snake_option.name for ai_snake_option in ai_snake_options"></select><br><br>
+
+		    	Starting Speed: <select name="speed" ng-model="$parent.edit_speed" ng-options="speed_option.value as speed_option.name for speed_option in speed_options"></select><br><br>
+
+		    	Board Size: <select name="dimension" ng-model="$parent.edit_dimension" ng-options="dimension_option.value as dimension_option.name for dimension_option in dimension_options"></select><br><br>
+
+		    	Starting Length: <select name="start_length" ng-model="$parent.edit_starting_length" ng-options="starting_length_option.value as starting_length_option.name for starting_length_option in starting_length_options"></select><br><br>
+
+		    	Expansion Length: <select name="expand_length" ng-model="$parent.edit_expand_length" ng-options="expand_length_option.value as expand_length_option.name for expand_length_option in expand_length_options"></select><br><br>
+
+		    	Candy Buffer: <select name="candy_buffer" ng-model="$parent.edit_candy_buffer" ng-options="candy_buffer_option.value as candy_buffer_option.name for candy_buffer_option in candy_buffer_options"></select><br><br>		    	
+
+		    	<a href="" ng-click="cancel_config()">Cancel</a> or <a href="" ng-click="commit_config()">Update!</a> 
+		    </div>  		        
+    	</div>
+    </div>
+</div>
